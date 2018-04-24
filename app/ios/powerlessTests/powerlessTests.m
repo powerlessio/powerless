@@ -16,11 +16,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React Native!"
 
-@interface awsmobilereactnativesampleTests : XCTestCase
+@interface powerlessTests : XCTestCase
 
 @end
 
-@implementation awsmobilereactnativesampleTests
+@implementation powerlessTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {

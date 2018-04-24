@@ -1,4 +1,4 @@
-package com.awsmobilereactnativesample;
+package io.powerless;
 
 import android.app.Application;
 

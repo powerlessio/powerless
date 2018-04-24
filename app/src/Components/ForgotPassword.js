@@ -136,7 +136,7 @@ class ForgotPassword extends React.Component {
         <View style={styles.imageContainer}>
           <Image
             resizeMode='contain'
-            source={require('../../assets/images/puppy.png')}
+            source={require('../../assets/images/powerless.png')}
             style={styles.puppy}
           />
         </View>
@@ -200,4 +200,3 @@ class ForgotPassword extends React.Component {
 }
 
 export default ForgotPassword;
-
