@@ -1,7 +1,7 @@
 package io.powerless;
 
 import android.app.Application;
-
+import com.polidea.reactnativeble.BlePackage;
 import com.facebook.react.ReactApplication;
 import com.amazonaws.RNAWSCognitoPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
@@ -26,9 +26,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNFetchBlobPackage(),
-            new RNAWSCognitoPackage(),
-            new VectorIconsPackage()
+          new RNFetchBlobPackage(),
+          new RNAWSCognitoPackage(),
+          new VectorIconsPackage(),
+          new BlePackage()
       );
     }
   };
