@@ -21,6 +21,7 @@ import {
   Easing,
   TouchableHighlight,
   Modal,
+  Alert,
 } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import { DrawerNavigator, NavigationActions, StackNavigator } from 'react-navigation';
@@ -32,6 +33,7 @@ import UploadPhoto from '../Components/UploadPhoto';
 import SideMenuIcon from '../Components/SideMenuIcon';
 import awsmobile from '../aws-exports';
 import { colors } from 'theme';
+import { BleManager } from 'react-native-ble-plx';
 
 let styles = {};
 
@@ -45,11 +47,40 @@ class Home extends React.Component {
 
     this.animatedIcon = new Animated.Value(0);
 
+    // create BleManager to scan devices
+    this.bleManager = new BleManager();
+
     this.state = {
       apiResponse: null,
       loading: true,
       modalVisible: false,
+      device: null,
     }
+  }
+
+  componentWillMount() {
+    const subscription = this.bleManager.onStateChange((state) => {
+        Alert.alert("powerless", "ble state");
+        if (state === 'PoweredOn') {
+            this.scanAndConnect();
+            subscription.remove();
+        }
+    }, true);
+  }
+
+  scanAndConnect() {
+    this.bleManager.startDeviceScan(null, null, (error, device) => {
+      if (error) {
+        Alert.alert(
+          "powerless",
+          "failed to scan devices: " + error);
+        return;
+      }
+
+      // get one device - display it and stop
+      this.state.device = device;
+      this.bleManager.stopDeviceScan();
+    });
   }
 
   componentDidMount() {
@@ -140,7 +171,8 @@ class Home extends React.Component {
 
     return (
       <View style={[{ flex: 1 }]}>
-        {!loading && <View style={{ position: 'absolute', bottom: 25, right: 25, zIndex: 1 }}>
+        {!loading &&
+          <View style={{ position: 'absolute', bottom: 25, right: 25, zIndex: 1 }}>
           <Icon
             onPress={this.toggleModal}
             raised
@@ -148,9 +180,11 @@ class Home extends React.Component {
             name='add'
             size={44}
             containerStyle={{ width: 50, height: 50 }}
-            color={colors.primary}
-          />
+            color={colors.primary}/>
         </View>}
+        <View style={styles.petInfoContainer}>
+          <Text style={styles.petInfoName}>DEVICE NAME</Text>
+        </View>
         <ScrollView style={[{ flex: 1, zIndex: 0 }]} contentContainerStyle={[loading && { justifyContent: 'center', alignItems: 'center' }]}>
           {loading && <Animated.View style={{ transform: [{ rotate: spin }] }}><Icon name='autorenew' color={colors.grayIcon} /></Animated.View>}
           {
@@ -173,6 +207,23 @@ class Home extends React.Component {
         >
           <AddPetRoutes screenProps={{ handleRetrievePet: this.handleRetrievePet, toggleModal: this.toggleModal }} />
         </Modal>
+
+        <TouchableHighlight
+          onPress={() => {
+            // connect to device
+            state.device.connect()
+              .then((device) => {
+                return device.discoverAllServicesAndCharacteristics();
+              })
+              .then((device) => {
+                // work with services and characteristics
+              })
+              .catch((device) => {
+                Alert.alert("powerless", "error to connect...");
+              });
+          }}
+          key={'device'}>
+        </TouchableHighlight>
       </View >
     );
   }
