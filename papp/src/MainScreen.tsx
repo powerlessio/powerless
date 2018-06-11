@@ -3,6 +3,7 @@ import { Button } from 'react-native'
 import { Component } from 'react'
 import { NavigationScreenProps } from 'react-navigation'
 import { ScrollView } from 'react-native'
+import { Text } from 'react-native'
 
 class DestinationAndTitle {
   constructor(
@@ -28,20 +29,21 @@ export class MainScreen extends Component<NavigationScreenProps> {
 
   public render() {
     return (
-      <ScrollView
-        style={{
-          backgroundColor: '#fff',
-          flex: 1
-        }}
-      >
-        {this.destinationAndTitlePairs.map(destinationAndTitle =>
-          <Button
-            key={destinationAndTitle.destination}
-            onPress={() => this.props.navigation.navigate(destinationAndTitle.destination)}
-            title={destinationAndTitle.title}
-          />
-        )}
-      </ScrollView>
+      <Text>Hello, Powerless!</Text>
+      // <ScrollView
+      //   style={{
+      //     backgroundColor: '#fff',
+      //     flex: 1
+      //   }}
+      // >
+      //   {this.destinationAndTitlePairs.map(destinationAndTitle =>
+      //     <Button
+      //       key={destinationAndTitle.destination}
+      //       onPress={() => this.props.navigation.navigate(destinationAndTitle.destination)}
+      //       title={destinationAndTitle.title}
+      //     />
+      //   )}
+      // </ScrollView>
     )
   }
 

@@ -1,10 +1,10 @@
 {
-  "name": "expo-and-typescript",
-  "version": "0.0.0",
-  "description": "React Native using Expo and TypeScript",
+  "name": "Powerless",
+  "version": "1.0.0",
+  "description": "Powerless App",
   "author": {
-    "email": "jan@aagaard.net",
-    "name": "Jan Aagaard"
+    "email": "caoxhua@gmail.com",
+    "name": "Powerless Inc."
   },
   "private": false,
   "license": "MIT",
@@ -16,7 +16,7 @@
     "validate-typescript": "npm run lint && tsc --noEmit"
   },
   "dependencies": {
-    "expo": "26.0.0",
+    "expo": "^27.0.2",
     "react": "16.3.0-alpha.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
     "react-navigation": "1.5.8",
@@ -27,7 +27,7 @@
     "@types/react": "16.3.12",
     "@types/react-native": "0.55.4",
     "@types/react-navigation": "1.5.7",
-    "exp": "53.0.0",
+    "exp": "^54.0.1",
     "react-native-typescript-transformer": "1.2.4",
     "tslint": "5.9.1",
     "tslint-eslint-rules": "5.1.0",
