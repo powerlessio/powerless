@@ -1,4 +1,6 @@
 {
+  "name": "app.powerless.io",
+  "displayName": "Powerless App",
   "expo": {
     "name": "Powerless",
     "description": "PowerApp",
@@ -24,7 +26,8 @@
       "transformer": "node_modules/react-native-typescript-transformer/index.js"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+
     }
   }
 }

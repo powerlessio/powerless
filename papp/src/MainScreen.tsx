@@ -24,26 +24,35 @@ class DestinationAndTitle {
 // tslint:disable-next-line:max-classes-per-file
 export class MainScreen extends Component<NavigationScreenProps> {
   public static navigationOptions = {
-    title: 'Home'
+    title: 'Power...less',
+    headerStyle: {
+      backgroundColor: '#F4511E'
+    }
   }
 
   public render() {
     return (
-      <Text>Hello, Powerless!</Text>
-      // <ScrollView
-      //   style={{
-      //     backgroundColor: '#fff',
-      //     flex: 1
-      //   }}
-      // >
-      //   {this.destinationAndTitlePairs.map(destinationAndTitle =>
-      //     <Button
-      //       key={destinationAndTitle.destination}
-      //       onPress={() => this.props.navigation.navigate(destinationAndTitle.destination)}
-      //       title={destinationAndTitle.title}
-      //     />
-      //   )}
-      // </ScrollView>
+      <ScrollView
+        style={{
+          backgroundColor: '#F2B21E',
+          flex: 1
+        }}>
+        <Text>Hello, Powerless!</Text>
+        <Button
+          title="Show Heart"
+          onPress={() => {
+            this.props.navigation.setParams({other: 'Demand'});
+            this.props.navigation.navigate('Svg')
+          }}
+        />
+
+        <Button
+          title="Login Facebook"
+          onPress={() =>{
+            this.props.navigation.navigate('Facebook')
+          }}
+        />
+      </ScrollView>
     )
   }
 
