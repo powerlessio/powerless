@@ -37,7 +37,6 @@ export class MainScreen extends Component<NavigationScreenProps> {
           backgroundColor: '#F2B21E',
           flex: 1
         }}>
-        <Text>Hello, Powerless!</Text>
         <Button
           title="Show Heart"
           onPress={() => {

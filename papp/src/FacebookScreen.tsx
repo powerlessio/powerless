@@ -8,44 +8,84 @@ import { NavigationScreenProps } from 'react-navigation'
 import { Text } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import { View } from 'react-native'
+// use redux to manage login state
+import { createStore } from 'redux'
+
+interface IState
+{
+  name: string;
+}
+
+interface IAction
+{
+  type: string;
+  user: string;
+}
 
 export class FacebookScreen extends Component<NavigationScreenProps> {
-  state: { name:string };
+  constructor(){
+    super();
+
+    // create a store with updateState as state transformer
+    this.store = createStore(this.updateState);
+
+    // pass store new state to current state to trigger re-render
+    this.store.subscribe(() => this.setState(this.store.getState()))
+  }
+
   public static navigationOptions = {
     title: 'Facebook'
   }
 
-  constructor(){
-    super()
-    this.state = {name:'unknown'};
+  // define state transformer based on action
+  private updateState(state :IState = {name: 'x'}, action:IAction) {
+    switch(action.type){
+      case 'success':
+        state.name = action.user;
+        break;
+      case 'fail':
+        state.name = 'failed';
+        break;
+      default:
+        break;
+    }
+
+    return state;
   }
+
   // find powerless app ID in FB apps page
   // https://developers.facebook.com/apps/
   // Powerless APP ID: 1049633408521932
   // Expo built-in app ID 1487822177919606
   // API guide https://blog.expo.io/using-expos-facebook-api-3b24d8f9ab3d
-  public async logIn() {
+  private async logIn(store) {
     const loginResponse = await Facebook.logInWithReadPermissionsAsync(
       '1049633408521932', {
         permissions: ['public_profile']
-    })
+    });
 
     if (loginResponse.type === 'success') {
       // Get the user's name using Facebook's Graph API.
-      const response = await fetch(
-        `https://graph.facebook.com/me?access_token=${loginResponse.token}`)
+      const fbg = 'https://graph.facebook.com/me?access_token'
+      let url = `${fbg}=${loginResponse.token}`;
+      var r = await fetch(url)
+      .then(function(response){
+        return response.json();
+      })
+      .then(function(json){
+        return {user: json.name}
+      })
+      .catch(function(error) {
+        Alert.alert('ERROR', 'Error in fetching operation: ' + error.message);
+        // ADD THIS THROW error
+        throw error;
+      });
 
-      // fetch picture, name, birthday
-      this.state = {name: (await response.json()).name};
-      Alert.alert(
-        'Logged in!',
-        `Hi `
-      )
+      // dispatch a success action
+      store.dispatch({type: 'success', user: r.user});
     } else {
-      Alert.alert(
-        'Login Failure',
-        `${loginResponse.type}`
-      )
+      // dispath a fail action
+      store.dispatch({type: 'fail'});
     }
   }
 
@@ -59,8 +99,8 @@ export class FacebookScreen extends Component<NavigationScreenProps> {
           justifyContent: 'center'
         }}
       >
-        <Text>{this.state.name}</Text>
-        <TouchableOpacity onPress={this.logIn}>
+        <Text>{this.store.getState().name}</Text>
+        <TouchableOpacity onPress={() => this.logIn(this.store)}>
           <View
             style={{
               alignItems: 'center',
