@@ -1,3 +1,5 @@
+import * as React from 'react'
+import { Component } from 'react'
 import { StackNavigator } from 'react-navigation'
 
 import { AccelerometerScreen } from './AccelerometerScreen'
@@ -23,7 +25,12 @@ import { SystemFontsScreen } from './constants/SystemFontsScreen'
 import { UtilScreen } from './UtilScreen'
 import { VectorIconsScreen } from './VectorIconsScreen'
 
-export default StackNavigator({
+import { Text } from 'react-native'
+import { Provider,connect } from 'react-redux';
+import { PersistGate } from 'redux-persist/lib/integration/react';
+import { PowerlessData } from './data/Data'
+
+const Navigationapp = StackNavigator({
   // tslint:disable:object-literal-sort-keys
   Main: { screen: MainScreen },
 
@@ -48,4 +55,28 @@ export default StackNavigator({
   SystemFonts: { screen: SystemFontsScreen },
   Util: { screen: UtilScreen },
   VectorIcons: { screen: VectorIconsScreen }
-})
+});
+
+const mapStateToProps=state => {
+    return state;
+};
+const Container = connect(mapStateToProps)(Navigationapp);
+
+export default class App extends Component{
+    render(){
+      // subscribe a state change set
+      // pass store new state to current state to trigger re-render
+      const data = PowerlessData.getData();
+      const store = data.getStore();
+      const persistor = data.getPersistor();
+      console.log('store: ' + store);
+      console.log('persistor: ' + persistor);
+      return (
+        <Provider store={store}>
+          <PersistGate loading={<Text>loading...</Text>} persistor={persistor}>
+            <Container />
+          </PersistGate>
+        </Provider>
+      )
+    }
+};

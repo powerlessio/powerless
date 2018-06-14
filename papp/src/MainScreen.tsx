@@ -51,6 +51,8 @@ export class MainScreen extends Component<NavigationScreenProps> {
             this.props.navigation.navigate('Facebook')
           }}
         />
+
+        <Text>Persisted Data: </Text>
       </ScrollView>
     )
   }
