@@ -8,49 +8,22 @@ import { NavigationScreenProps } from 'react-navigation'
 import { Text } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import { View } from 'react-native'
-// use redux to manage login state
-import { createStore } from 'redux'
 
-interface IState
-{
-  name: string;
-}
-
-interface IAction
-{
-  type: string;
-  user: string;
-}
+import { PowerlessData } from './data/Data'
 
 export class FacebookScreen extends Component<NavigationScreenProps> {
   constructor(){
     super();
+    this.data = PowerlessData.getData();
 
-    // create a store with updateState as state transformer
-    this.store = createStore(this.updateState);
-
+    // subscribe a state change set
     // pass store new state to current state to trigger re-render
-    this.store.subscribe(() => this.setState(this.store.getState()))
+    const store = this.data.getStore();
+    store.subscribe(() => this.setState(store.getState()));
   }
 
   public static navigationOptions = {
     title: 'Facebook'
-  }
-
-  // define state transformer based on action
-  private updateState(state :IState = {name: 'x'}, action:IAction) {
-    switch(action.type){
-      case 'success':
-        state.name = action.user;
-        break;
-      case 'fail':
-        state.name = 'failed';
-        break;
-      default:
-        break;
-    }
-
-    return state;
   }
 
   // find powerless app ID in FB apps page
@@ -59,37 +32,43 @@ export class FacebookScreen extends Component<NavigationScreenProps> {
   // Expo built-in app ID 1487822177919606
   // API guide https://blog.expo.io/using-expos-facebook-api-3b24d8f9ab3d
   private async logIn(store) {
-    const loginResponse = await Facebook.logInWithReadPermissionsAsync(
-      '1049633408521932', {
-        permissions: ['public_profile']
-    });
-
-    if (loginResponse.type === 'success') {
-      // Get the user's name using Facebook's Graph API.
-      const fbg = 'https://graph.facebook.com/me?access_token'
-      let url = `${fbg}=${loginResponse.token}`;
-      var r = await fetch(url)
-      .then(function(response){
-        return response.json();
-      })
-      .then(function(json){
-        return {user: json.name}
-      })
-      .catch(function(error) {
-        Alert.alert('ERROR', 'Error in fetching operation: ' + error.message);
-        // ADD THIS THROW error
-        throw error;
+    let auth:IAuth = store.getState().auth;
+    if(!auth.fbToken){
+      const loginResponse = await Facebook.logInWithReadPermissionsAsync(
+        '1049633408521932', {
+          permissions: ['public_profile']
       });
 
-      // dispatch a success action
-      store.dispatch({type: 'success', user: r.user});
-    } else {
-      // dispath a fail action
-      store.dispatch({type: 'fail'});
-    }
+      if (loginResponse.type === 'success') {
+        const token = loginResponse.token;
+        // Get the user's name using Facebook's Graph API.
+        const fbg = 'https://graph.facebook.com/me?access_token'
+        let url = `${fbg}=${token}`;
+        var r = await fetch(url)
+        .then(function(response){
+          return response.json();
+        })
+        .then(function(json){
+          return {user: json.name}
+        })
+        .catch(function(error) {
+          Alert.alert('ERROR', 'Error in fetching operation: ' + error.message);
+          // ADD THIS THROW error
+          throw error;
+        });
+
+        // dispatch a success action
+        store.dispatch(
+        {type: 'success', auth: {fbToken: token, userName: r.user}});
+      } else {
+        // dispath a fail action
+        store.dispatch({type: 'fail'});
+      }
+    } // if (!auth)
   }
 
   public render() {
+    let store = this.data.getStore();
     return (
       <View
         style={{
@@ -99,8 +78,8 @@ export class FacebookScreen extends Component<NavigationScreenProps> {
           justifyContent: 'center'
         }}
       >
-        <Text>{this.store.getState().name}</Text>
-        <TouchableOpacity onPress={() => this.logIn(this.store)}>
+        <Text>{store.getState().auth.userName}</Text>
+        <TouchableOpacity onPress={() => this.logIn(store)}>
           <View
             style={{
               alignItems: 'center',
