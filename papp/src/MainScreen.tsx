@@ -40,9 +40,6 @@ export class MainScreen extends Component<NavigationScreenProps> {
     let store = data.getStore();
     let persistor = data.getPersistor();
     return (
-      <Provider store={store}>
-        <PersistGate loading={<Text>loading...</Text>} persistor={persistor}>
-
       <ScrollView
         style={{
           backgroundColor: '#F2B21E',
@@ -65,9 +62,6 @@ export class MainScreen extends Component<NavigationScreenProps> {
 
         <Text>User: {store.getState().auth.authState.userName}</Text>
       </ScrollView>
-
-    </PersistGate>
-  </Provider>
     )
   }
 

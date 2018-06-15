@@ -13,6 +13,7 @@ import { PowerlessData } from './data/Data'
 import { Provider,connect } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 
+
 export class FacebookScreen extends Component<NavigationScreenProps> {
   constructor(){
     super();
@@ -34,85 +35,85 @@ export class FacebookScreen extends Component<NavigationScreenProps> {
   // Expo built-in app ID 1487822177919606
   // API guide https://blog.expo.io/using-expos-facebook-api-3b24d8f9ab3d
   private async logIn(store) {
-    let auth: IAuthState = store.getState().auth;
-    if(!auth.fbToken){
-      const loginResponse = await Facebook.logInWithReadPermissionsAsync(
-        '1049633408521932', {
-          permissions: ['public_profile']
+    const loginResponse = await Facebook.logInWithReadPermissionsAsync(
+      '1049633408521932', {
+        permissions: ['public_profile']
+    });
+
+    if (loginResponse.type === 'success') {
+      const token = loginResponse.token;
+      // Get the user's name using Facebook's Graph API.
+      const fbg = 'https://graph.facebook.com/me?access_token'
+      let url = `${fbg}=${token}`;
+      var r = await fetch(url)
+      .then(function(response){
+        return response.json();
+      })
+      .then(function(json){
+        return {user: json.name}
+      })
+      .catch(function(error) {
+        Alert.alert('ERROR', 'Error in fetching operation: ' + error.message);
+        // ADD THIS THROW error
+        throw error;
       });
 
-      if (loginResponse.type === 'success') {
-        const token = loginResponse.token;
-        // Get the user's name using Facebook's Graph API.
-        const fbg = 'https://graph.facebook.com/me?access_token'
-        let url = `${fbg}=${token}`;
-        var r = await fetch(url)
-        .then(function(response){
-          return response.json();
-        })
-        .then(function(json){
-          return {user: json.name}
-        })
-        .catch(function(error) {
-          Alert.alert('ERROR', 'Error in fetching operation: ' + error.message);
-          // ADD THIS THROW error
-          throw error;
-        });
-
-        // dispatch a success action
-        store.dispatch(
-        {type: 'success', auth: {fbToken: token, userName: r.user}});
-      } else {
-        // dispath a fail action
-        store.dispatch({type: 'fail'});
-      }
-    } // if (!auth)
+      // dispatch a success action
+      store.dispatch(
+      {
+        type: 'success',
+        auth: {fbToken: token, userName: r.user, loggedin: true}
+     });
+    } else {
+      // dispath a fail action
+      store.dispatch({type: 'fail'});
+    }
   }
 
   public render() {
     let store = this.data.getStore();
-    let persistor = this.data.getPersistor();
-    store.dispatch({type:'success', auth:{userName: 'FB'}});
+    let authState = store.getState().auth.authState;
+    let loggedIn = this.data.isFbLoggedIn();
     return (
-      <Provider store={store}>
-        <PersistGate loading={<Text>loading...</Text>} persistor={persistor}>
-          <View
+      <View
+        style={{
+          alignItems: 'center',
+          backgroundColor: '#fff',
+          flex: 1,
+          justifyContent: 'center'
+        }}
+      >
+        { loggedIn &&
+          <Text>Hello, {authState.userName}</Text>
+        }
+        { !loggedIn &&
+          <TouchableOpacity onPress={() => this.logIn(store)}>
+            <View
             style={{
               alignItems: 'center',
-              backgroundColor: '#fff',
-              flex: 1,
-              justifyContent: 'center'
-            }}
-          >
-            <Text>{store.getState().auth.authState.userName}</Text>
-            <TouchableOpacity onPress={() => this.logIn(store)}>
-              <View
-                style={{
-                  alignItems: 'center',
-                  backgroundColor: '#4267b2',
-                  borderRadius: 5,
-                  flexDirection: 'row',
-                  height: 40,
-                  paddingLeft: 6,
-                  width: 250
-                }}>
-                <FontAwesome
-                  name="facebook-official" size={28} style={{ color: '#fff' }} />
-                <Text
-                  style={{
-                    color: '#fff',
-                    flexGrow: 1,
-                    fontSize: 20,
-                    fontWeight: '500',
-                    textAlign: 'center'
-                  }}>
-                  Log in With Facebook
-                </Text>
-              </View>
-            </TouchableOpacity>
+              backgroundColor: '#4267b2',
+              borderRadius: 5,
+              flexDirection: 'row',
+              height: 40,
+              paddingLeft: 6,
+              width: 250
+            }}>
+            <FontAwesome
+              name="facebook-official" size={28} style={{ color: '#fff' }} />
+            <Text
+              style={{
+                color: '#fff',
+                flexGrow: 1,
+                fontSize: 20,
+                fontWeight: '500',
+                textAlign: 'center'
+              }}>
+              Log in With Facebook
+            </Text>
           </View>
-        </PersistGate>
-      </Provider>
+        </TouchableOpacity>
+      }
+      </View>
     )
   }
 }

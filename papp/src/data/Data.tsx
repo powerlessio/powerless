@@ -6,9 +6,8 @@ import { combineReducers } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import { REHYDRATE } from 'redux-persist';
 
-import {AsyncStorage} from 'react-native'
 import storage from 'redux-persist/lib/storage';
-import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
 
 // This file defines all data model using in the app
 export interface IAuthState{
@@ -43,7 +42,7 @@ const PERSIST_CONFIG = {
  key: 'powerless',
  storage: storage,
  whitelist: ['auth'], // refer rootReducer's list
- // stateReconciler: autoMergeLevel1 // see "Merge Process" section for details.
+ stateReconciler: hardSet // see "Merge Process" section for details.
 };
 
 export class PowerlessData {
@@ -64,7 +63,10 @@ export class PowerlessData {
 
     // create a store with updateState as state transformer
     this.store = createStore(pReducer);
-    this.persistor = persistStore(this.store, {log: true});
+    this.persistor = persistStore(this.store, {log: true}, ()=>{
+      console.log('call back after rehydration: ' + JSON.stringify(this.store.getState()));
+    });
+    // this.store.subscribe(() => this.persistor.flush());
   }
 
   public static getData() {
@@ -77,7 +79,7 @@ export class PowerlessData {
 
   // define state transformer based on action
   private authReducer(state :IState = INITIAL_STATE, action :IAuthAction) {
-    console.log('before auto reducer, state=' + JSON.stringify(state));
+    console.log('before auth reducer @ '+action.type+', state=' + JSON.stringify(state));
     switch(action.type){
       case 'success':
         state.authState = action.auth;
@@ -87,9 +89,7 @@ export class PowerlessData {
         break;
     }
 
-    console.log('after auto reducer @ ' + action.type
-    + ', state=' + JSON.stringify(state));
-    return state;
+    return {...state};
   }
 
   public getStore() {
@@ -99,4 +99,10 @@ export class PowerlessData {
   public getPersistor() {
     return this.persistor;
   }
+
+  public isFbLoggedIn(): boolean {
+    let authState = this.store.getState().auth.authState;
+    return authState.loggedin && !!authState.fbToken;
+  }
+
 }
