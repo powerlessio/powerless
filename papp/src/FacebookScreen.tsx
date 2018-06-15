@@ -10,6 +10,8 @@ import { TouchableOpacity } from 'react-native'
 import { View } from 'react-native'
 
 import { PowerlessData } from './data/Data'
+import { Provider,connect } from 'react-redux';
+import { PersistGate } from 'redux-persist/lib/integration/react';
 
 export class FacebookScreen extends Component<NavigationScreenProps> {
   constructor(){
@@ -18,8 +20,8 @@ export class FacebookScreen extends Component<NavigationScreenProps> {
 
     // subscribe a state change set
     // pass store new state to current state to trigger re-render
-    const store = this.data.getStore();
-    store.subscribe(() => this.setState(store.getState()));
+    // const store = this.data.getStore();
+    // store.subscribe(() => this.setState(store.getState()));
   }
 
   public static navigationOptions = {
@@ -32,7 +34,7 @@ export class FacebookScreen extends Component<NavigationScreenProps> {
   // Expo built-in app ID 1487822177919606
   // API guide https://blog.expo.io/using-expos-facebook-api-3b24d8f9ab3d
   private async logIn(store) {
-    let auth:IAuth = store.getState().auth;
+    let auth: IAuthState = store.getState().auth;
     if(!auth.fbToken){
       const loginResponse = await Facebook.logInWithReadPermissionsAsync(
         '1049633408521932', {
@@ -69,43 +71,48 @@ export class FacebookScreen extends Component<NavigationScreenProps> {
 
   public render() {
     let store = this.data.getStore();
+    let persistor = this.data.getPersistor();
+    store.dispatch({type:'success', auth:{userName: 'FB'}});
     return (
-      <View
-        style={{
-          alignItems: 'center',
-          backgroundColor: '#fff',
-          flex: 1,
-          justifyContent: 'center'
-        }}
-      >
-        <Text>{store.getState().auth.userName}</Text>
-        <TouchableOpacity onPress={() => this.logIn(store)}>
+      <Provider store={store}>
+        <PersistGate loading={<Text>loading...</Text>} persistor={persistor}>
           <View
             style={{
               alignItems: 'center',
-              backgroundColor: '#4267b2',
-              borderRadius: 5,
-              flexDirection: 'row',
-              height: 40,
-              paddingLeft: 6,
-              width: 250
+              backgroundColor: '#fff',
+              flex: 1,
+              justifyContent: 'center'
             }}
           >
-            <FontAwesome name="facebook-official" size={28} style={{ color: '#fff' }} />
-            <Text
-              style={{
-                color: '#fff',
-                flexGrow: 1,
-                fontSize: 20,
-                fontWeight: '500',
-                textAlign: 'center'
-              }}
-            >
-              Log in With Facebook
-            </Text>
+            <Text>{store.getState().auth.authState.userName}</Text>
+            <TouchableOpacity onPress={() => this.logIn(store)}>
+              <View
+                style={{
+                  alignItems: 'center',
+                  backgroundColor: '#4267b2',
+                  borderRadius: 5,
+                  flexDirection: 'row',
+                  height: 40,
+                  paddingLeft: 6,
+                  width: 250
+                }}>
+                <FontAwesome
+                  name="facebook-official" size={28} style={{ color: '#fff' }} />
+                <Text
+                  style={{
+                    color: '#fff',
+                    flexGrow: 1,
+                    fontSize: 20,
+                    fontWeight: '500',
+                    textAlign: 'center'
+                  }}>
+                  Log in With Facebook
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-      </View>
+        </PersistGate>
+      </Provider>
     )
   }
 }

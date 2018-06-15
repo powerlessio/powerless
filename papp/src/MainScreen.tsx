@@ -5,6 +5,10 @@ import { NavigationScreenProps } from 'react-navigation'
 import { ScrollView } from 'react-native'
 import { Text } from 'react-native'
 
+import { PowerlessData } from './data/Data'
+import { Provider,connect } from 'react-redux';
+import { PersistGate } from 'redux-persist/lib/integration/react';
+
 class DestinationAndTitle {
   constructor(
     public destination: string,
@@ -31,7 +35,14 @@ export class MainScreen extends Component<NavigationScreenProps> {
   }
 
   public render() {
+    // debug - pretend user logged in
+    let data = PowerlessData.getData();
+    let store = data.getStore();
+    let persistor = data.getPersistor();
     return (
+      <Provider store={store}>
+        <PersistGate loading={<Text>loading...</Text>} persistor={persistor}>
+
       <ScrollView
         style={{
           backgroundColor: '#F2B21E',
@@ -52,8 +63,11 @@ export class MainScreen extends Component<NavigationScreenProps> {
           }}
         />
 
-        <Text>Persisted Data: </Text>
+        <Text>User: {store.getState().auth.authState.userName}</Text>
       </ScrollView>
+
+    </PersistGate>
+  </Provider>
     )
   }
 
