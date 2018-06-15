@@ -7,37 +7,42 @@ import { persistStore, persistReducer } from 'redux-persist';
 import { REHYDRATE } from 'redux-persist';
 
 import storage from 'redux-persist/lib/storage';
-import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
-
+import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
 
 // This file defines all data model using in the app
-export interface IAuth{
+export interface IAuthState{
   fbToken: string;
   userName: string;
+  loggedin: boolean;
 }
 
+// define app state
 export interface IState
 {
-  auth: IAuth;
+  authState: IAuthState;
 }
 
-export interface IAction
+export interface IAuthAction
 {
   type: string;
-  auth: IAuth;
+  auth: IAuthState;
 }
 
 // define initial state of app
 const INITIAL_STATE: IState = {
-  auth: {fbToken:'', userName: 'x'}
+  authState : {
+    fbToken: '',
+    userName: 'x',
+    loggedin: false,
+  },
 };
 
 // define data persistence config
 const PERSIST_CONFIG = {
- key: 'root',
+ key: 'powerless',
  storage: storage,
  whitelist: ['auth'], // refer rootReducer's list
- stateReconciler: autoMergeLevel2 // see "Merge Process" section for details.
+ stateReconciler: hardSet // see "Merge Process" section for details.
 };
 
 export class PowerlessData {
@@ -48,6 +53,7 @@ export class PowerlessData {
     // create a root reducer to include all rules to transform
     // actions to state changes
     let rootReducer = combineReducers({
+      // this reduce key will be a node in the state tree
       auth: this.authReducer
     });
 
@@ -57,7 +63,10 @@ export class PowerlessData {
 
     // create a store with updateState as state transformer
     this.store = createStore(pReducer);
-    this.persistor = persistStore(this.store);
+    this.persistor = persistStore(this.store, {log: true}, ()=>{
+      console.log('call back after rehydration: ' + JSON.stringify(this.store.getState()));
+    });
+    // this.store.subscribe(() => this.persistor.flush());
   }
 
   public static getData() {
@@ -69,21 +78,18 @@ export class PowerlessData {
   }
 
   // define state transformer based on action
-  private authReducer(state :IState = INITIAL_STATE, action:IAction) {
+  private authReducer(state :IState = INITIAL_STATE, action :IAuthAction) {
+    console.log('before auth reducer @ '+action.type+', state=' + JSON.stringify(state));
     switch(action.type){
-      case REHYDRATE:
-       console.log('state loaded from storage: ' + JSON.stringify(state));
-       break;
       case 'success':
-        state.auth = action.auth;
+        state.authState = action.auth;
         break;
       case 'fail':
-        break;
-      default:
+        state.authState = {auth: { loggedin:'false' } };
         break;
     }
 
-    return state;
+    return {...state};
   }
 
   public getStore() {
@@ -93,4 +99,10 @@ export class PowerlessData {
   public getPersistor() {
     return this.persistor;
   }
+
+  public isFbLoggedIn(): boolean {
+    let authState = this.store.getState().auth.authState;
+    return authState.loggedin && !!authState.fbToken;
+  }
+
 }
