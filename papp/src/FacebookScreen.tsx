@@ -10,9 +10,6 @@ import { TouchableOpacity } from 'react-native'
 import { View } from 'react-native'
 
 import { PowerlessData } from './data/Data'
-import { Provider,connect } from 'react-redux';
-import { PersistGate } from 'redux-persist/lib/integration/react';
-
 
 export class FacebookScreen extends Component<NavigationScreenProps> {
   constructor(){
@@ -35,13 +32,15 @@ export class FacebookScreen extends Component<NavigationScreenProps> {
   // Expo built-in app ID 1487822177919606
   // API guide https://blog.expo.io/using-expos-facebook-api-3b24d8f9ab3d
   private async logIn(store) {
+    // loging response has access token and unix time of token expire time
     const loginResponse = await Facebook.logInWithReadPermissionsAsync(
       '1049633408521932', {
-        permissions: ['public_profile']
+        permissions: ['public_profile', 'email']
     });
 
     if (loginResponse.type === 'success') {
       const token = loginResponse.token;
+      const expire = loginResponse.expires;
       // Get the user's name using Facebook's Graph API.
       const fbg = 'https://graph.facebook.com/me?access_token'
       let url = `${fbg}=${token}`;
@@ -50,7 +49,8 @@ export class FacebookScreen extends Component<NavigationScreenProps> {
         return response.json();
       })
       .then(function(json){
-        return {user: json.name}
+        // facebook return id/name by providing access token
+        return json;
       })
       .catch(function(error) {
         Alert.alert('ERROR', 'Error in fetching operation: ' + error.message);
@@ -62,7 +62,13 @@ export class FacebookScreen extends Component<NavigationScreenProps> {
       store.dispatch(
       {
         type: 'success',
-        auth: {fbToken: token, userName: r.user, loggedin: true}
+        auth: {
+          fbToken: token,
+          fbTokenExpire:expire,
+          fbId: r.id,
+          fbName: r.name,
+          loggedin: true
+        }
      });
     } else {
       // dispath a fail action
@@ -84,7 +90,7 @@ export class FacebookScreen extends Component<NavigationScreenProps> {
         }}
       >
         { loggedIn &&
-          <Text>Hello, {authState.userName}</Text>
+          <Text>Hello, {authState.fbName}</Text>
         }
         { !loggedIn &&
           <TouchableOpacity onPress={() => this.logIn(store)}>

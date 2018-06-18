@@ -11,8 +11,11 @@ import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
 
 // This file defines all data model using in the app
 export interface IAuthState{
+  // user metadata if logged in using FB
   fbToken: string;
-  userName: string;
+  fbTokenExpire: number;
+  fbId: string;
+  fbName: string;
   loggedin: boolean;
 }
 
@@ -64,7 +67,8 @@ export class PowerlessData {
     // create a store with updateState as state transformer
     this.store = createStore(pReducer);
     this.persistor = persistStore(this.store, {log: true}, ()=>{
-      console.log('call back after rehydration: ' + JSON.stringify(this.store.getState()));
+      console.log('call back after rehydration: '
+      + JSON.stringify(this.store.getState()));
     });
     // this.store.subscribe(() => this.persistor.flush());
   }
@@ -79,7 +83,6 @@ export class PowerlessData {
 
   // define state transformer based on action
   private authReducer(state :IState = INITIAL_STATE, action :IAuthAction) {
-    console.log('before auth reducer @ '+action.type+', state=' + JSON.stringify(state));
     switch(action.type){
       case 'success':
         state.authState = action.auth;

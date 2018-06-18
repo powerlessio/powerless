@@ -1,0 +1,74 @@
+--- !com.amazonaws.mobilehub.v0.Project 
+features:
+  cloudlogic: !com.amazonaws.mobilehub.v0.CloudLogic 
+    components:
+      NotesCrud: !com.amazonaws.mobilehub.v0.API 
+        attributes:
+          name: NotesCrud
+          requires-signin: false
+          sdk-generation-stage-name: Development
+        paths:
+          /addnote: !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/addnote-20180620092127.zip
+            description: 'Handler for calls to resource path : /addnote/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: xE8ymY39AbY4rJ5fUaPGb32ELhFwd6u1PutnT79jXs8=
+            memorySize: '128'
+            modified: '2018-06-20T16:23:15.723+0000'
+            name: addnote
+            runtime: nodejs6.10
+            timeout: '3'
+            version: UG6jsqqsOiTAuDyeiCLmbvR1Ay55pbeo
+          '/addnote/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/addnote-20180620092127.zip
+            description: 'Handler for calls to resource path : /addnote/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: xE8ymY39AbY4rJ5fUaPGb32ELhFwd6u1PutnT79jXs8=
+            memorySize: '128'
+            modified: '2018-06-20T16:23:15.723+0000'
+            name: addnote
+            runtime: nodejs6.10
+            timeout: '3'
+            version: YIoE5Vj_lNvmr2PUX47KVRT09SiiWVRr
+          /notes: !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/NotesCrud-20180620092127.zip
+            description: 'Handler for calls to resource path : /notes/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: Doox8yYHf42l3u8LS45S1u4OTw4fuMpJ0yENDV3/ofM=
+            memorySize: '128'
+            modified: '2018-06-20T16:23:15.479+0000'
+            name: NotesCrud
+            runtime: nodejs6.10
+            timeout: '3'
+            version: R08gijqLQH79HgGoBLTxfiuz3KR9jkAt
+          '/notes/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/NotesCrud-20180620092127.zip
+            description: 'Handler for calls to resource path : /notes/{proxy+}'
+            enableCORS: true
+            environment: {}
+            handler: lambda.handler
+            hashcode: Doox8yYHf42l3u8LS45S1u4OTw4fuMpJ0yENDV3/ofM=
+            memorySize: '128'
+            modified: '2018-06-20T16:23:15.479+0000'
+            name: NotesCrud
+            runtime: nodejs6.10
+            timeout: '3'
+            version: tPl6y0xPbWC9hotsCctUJ3znRH7updZF
+  content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery 
+    attributes:
+      enabled: true
+      visibility: public-global
+    components:
+      release: !com.amazonaws.mobilehub.v0.Bucket {}
+  mobile-analytics: !com.amazonaws.mobilehub.v0.Pinpoint 
+    components:
+      analytics: !com.amazonaws.mobilehub.v0.PinpointAnalytics {}
+  sign-in: !com.amazonaws.mobilehub.v0.SignIn {}
+name: powerless-aws
+region: us-west-1

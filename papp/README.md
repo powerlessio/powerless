@@ -14,3 +14,8 @@ Thanks for setup to save time to combine Expo & Typescript.
 ## Nice talk on TypeScript https://www.typescriptlang.org/
 ## React-Native BLE https://github.com/Polidea/react-native-ble-plx
 ## Redux-persist https://blog.reactnativecoach.com/the-definitive-guide-to-redux-persist-84738167975
+
+# Backend
+## Use AWS-amplify for all backend persistence https://docs.aws.amazon.com/aws-mobile/latest/developerguide/react-native-access-databases.html
+### awsmobile configure to specify access keys.
+### awsmobile start to initialize the project to have source configs
