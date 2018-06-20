@@ -19,3 +19,10 @@ Thanks for setup to save time to combine Expo & Typescript.
 ## Use AWS-amplify for all backend persistence https://docs.aws.amazon.com/aws-mobile/latest/developerguide/react-native-access-databases.html
 ### awsmobile configure to specify access keys.
 ### awsmobile start to initialize the project to have source configs
+
+### init awsmobile console to work with backend
+console complains about
+"you are not working inside a valid awsmobilejs project"
+
+> "awsmobile init b40a98a0-c351-41d0-9445-e26b6a2fc05f"
+> cp awsmobilejs/#current*/aws-export.js src/aws-export.js

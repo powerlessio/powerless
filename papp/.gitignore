@@ -6,6 +6,7 @@
 # dependencies
 /node_modules
 /awsmobilejs/backend/cloud-api/NotesCrud/node_modules
+/awsmobilejs/backend/cloud-api/addnote/node_modules
 
 # misc
 .env.local
