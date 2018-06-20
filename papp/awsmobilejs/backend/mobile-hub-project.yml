@@ -8,34 +8,10 @@ features:
           requires-signin: false
           sdk-generation-stage-name: Development
         paths:
-          /addnote: !com.amazonaws.mobilehub.v0.Function 
-            codeFilename: uploads/addnote-20180620092127.zip
-            description: 'Handler for calls to resource path : /addnote/{proxy+}'
-            enableCORS: true
-            environment: {}
-            handler: lambda.handler
-            hashcode: xE8ymY39AbY4rJ5fUaPGb32ELhFwd6u1PutnT79jXs8=
-            memorySize: '128'
-            modified: '2018-06-20T16:23:15.723+0000'
-            name: addnote
-            runtime: nodejs6.10
-            timeout: '3'
-            version: UG6jsqqsOiTAuDyeiCLmbvR1Ay55pbeo
-          '/addnote/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
-            codeFilename: uploads/addnote-20180620092127.zip
-            description: 'Handler for calls to resource path : /addnote/{proxy+}'
-            enableCORS: true
-            environment: {}
-            handler: lambda.handler
-            hashcode: xE8ymY39AbY4rJ5fUaPGb32ELhFwd6u1PutnT79jXs8=
-            memorySize: '128'
-            modified: '2018-06-20T16:23:15.723+0000'
-            name: addnote
-            runtime: nodejs6.10
-            timeout: '3'
-            version: YIoE5Vj_lNvmr2PUX47KVRT09SiiWVRr
+          /addnote: !com.amazonaws.mobilehub.v0.Function {}
+          '/addnote/{proxy+}': !com.amazonaws.mobilehub.v0.Function {}
           /notes: !com.amazonaws.mobilehub.v0.Function 
-            codeFilename: uploads/NotesCrud-20180620092127.zip
+            codeFilename: uploads/NotesCrud-20180620114500.zip
             description: 'Handler for calls to resource path : /notes/{proxy+}'
             enableCORS: true
             environment: {}
@@ -48,7 +24,7 @@ features:
             timeout: '3'
             version: R08gijqLQH79HgGoBLTxfiuz3KR9jkAt
           '/notes/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
-            codeFilename: uploads/NotesCrud-20180620092127.zip
+            codeFilename: uploads/NotesCrud-20180620114500.zip
             description: 'Handler for calls to resource path : /notes/{proxy+}'
             enableCORS: true
             environment: {}

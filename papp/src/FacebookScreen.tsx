@@ -9,7 +9,7 @@ import { Text } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import { View } from 'react-native'
 
-import { PowerlessData } from './data/Data'
+import { PowerlessData } from './data/Local'
 
 export class FacebookScreen extends Component<NavigationScreenProps> {
   constructor(){

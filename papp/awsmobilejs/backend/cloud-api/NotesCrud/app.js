@@ -38,7 +38,7 @@ app.get('/notes', function(req, res) {
 
 app.get('/notes/*', function(req, res) {
   // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
+  res.json({success: 'get call succeed!', req: JSON.stringify(req)});
 });
 
 /****************************
