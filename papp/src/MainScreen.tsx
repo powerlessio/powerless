@@ -6,6 +6,7 @@ import { ScrollView } from 'react-native'
 import { Text } from 'react-native'
 
 import { PowerlessData } from './data/Data'
+import { CloudStore } from './data/Cloud'
 import { Provider,connect } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 
@@ -38,7 +39,8 @@ export class MainScreen extends Component<NavigationScreenProps> {
     // debug - pretend user logged in
     let data = PowerlessData.getData();
     let store = data.getStore();
-    let persistor = data.getPersistor();
+    let cloudStore = CloudStore.getStore();
+    cloudStore.saveNote();
     return (
       <ScrollView
         style={{
@@ -60,7 +62,7 @@ export class MainScreen extends Component<NavigationScreenProps> {
           }}
         />
 
-        <Text>User: {store.getState().auth.authState.userName}</Text>
+        <Text>User: {store.getState().auth.authState.fbName}</Text>
       </ScrollView>
     )
   }
