@@ -2,8 +2,6 @@
 import Amplify, { API } from 'aws-amplify';
 import awsmobile from '../aws-exports';
 
-import { AWS } from 'aws-sdk';
-
 // initialize the dynamodb client to use
 export class CloudStore {
   // singleton object
@@ -20,10 +18,6 @@ export class CloudStore {
     console.log('init a cloud store...');
     // connect with AWS services
     Amplify.configure(awsmobile);
-
-    // this.dynamoDb = new AWS.DynamoDB.DocumentClient();
-    // this.notesTable = `${process.env.MOBILE_HUB_DYNAMIC_PREFIX}-notes`;
-    // console.log('notes table: ' + this.notesTable);
   }
 
   public async saveNote() {
@@ -34,7 +28,7 @@ export class CloudStore {
         "content": "This is so cool!"
       }
     }
-    const path = "/addnote";
+    const path = "/notes";
 
     // Use the API module to save the note to the database
     try {

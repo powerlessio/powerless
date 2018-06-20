@@ -16,8 +16,8 @@
     "validate-typescript": "npm run lint && tsc --noEmit"
   },
   "dependencies": {
-    "aws-amplify": "^0.4.4",
-    "aws-amplify-react-native": "^0.2.15",
+    "aws-amplify": "^0.4.5",
+    "aws-amplify-react-native": "^0.2.16",
     "aws-sdk": "^2.259.1",
     "expo": "^27.1.0",
     "react": "16.3.0-alpha.1",

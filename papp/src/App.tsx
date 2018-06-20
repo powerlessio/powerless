@@ -28,7 +28,7 @@ import { VectorIconsScreen } from './VectorIconsScreen'
 import { Text } from 'react-native'
 import { Provider,connect } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
-import { PowerlessData } from './data/Data'
+import { PowerlessData } from './data/Local'
 
 const Navigationapp = StackNavigator({
   // tslint:disable:object-literal-sort-keys

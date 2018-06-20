@@ -38,7 +38,7 @@ app.get('/notes', function(req, res) {
 
 app.get('/notes/*', function(req, res) {
   // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
+  res.json({success: 'get call succeed!', req: JSON.stringify(req)});
 });
 
 /****************************
@@ -47,12 +47,12 @@ app.get('/notes/*', function(req, res) {
 
 app.post('/notes', function(req, res) {
   // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
+  res.json({success: 'post call succeed!', req: JSON.stringify(req)})
 });
 
 app.post('/notes/*', function(req, res) {
   // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
+  res.json({success: 'post call succeed!', req: JSON.stringify(req)})
 });
 
 /****************************
@@ -61,12 +61,12 @@ app.post('/notes/*', function(req, res) {
 
 app.put('/notes', function(req, res) {
   // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
+  res.json({success: 'put call succeed!', req: JSON.stringify(req))
 });
 
 app.put('/notes/*', function(req, res) {
   // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
+  res.json({success: 'put call succeed!', req: JSON.stringify(req)})
 });
 
 /****************************
@@ -75,12 +75,12 @@ app.put('/notes/*', function(req, res) {
 
 app.delete('/notes', function(req, res) {
   // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
+  res.json({success: 'delete call succeed!', req: JSON.stringify(req)});
 });
 
 app.delete('/notes/*', function(req, res) {
   // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
+  res.json({success: 'delete call succeed!', req: JSON.stringify(req)});
 });
 
 app.listen(3000, function() {

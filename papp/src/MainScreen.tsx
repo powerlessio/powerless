@@ -5,7 +5,7 @@ import { NavigationScreenProps } from 'react-navigation'
 import { ScrollView } from 'react-native'
 import { Text } from 'react-native'
 
-import { PowerlessData } from './data/Data'
+import { PowerlessData } from './data/Local'
 import { CloudStore } from './data/Cloud'
 import { Provider,connect } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
