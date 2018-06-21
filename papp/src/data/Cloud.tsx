@@ -2,8 +2,12 @@
 import Amplify, { API } from 'aws-amplify';
 import awsmobile from '../aws-exports';
 
-import { AWS } from 'aws-sdk';
-
+export interface INote {
+  userId: string;
+  noteId: string;
+  noteTitle: string;
+  noteContent: string;
+}
 // initialize the dynamodb client to use
 export class CloudStore {
   // singleton object
@@ -20,29 +24,44 @@ export class CloudStore {
     console.log('init a cloud store...');
     // connect with AWS services
     Amplify.configure(awsmobile);
-
-    // this.dynamoDb = new AWS.DynamoDB.DocumentClient();
-    // this.notesTable = `${process.env.MOBILE_HUB_DYNAMIC_PREFIX}-notes`;
-    // console.log('notes table: ' + this.notesTable);
   }
 
-  public async saveNote() {
+  /**
+  * Save a note object for current user into backend
+  */
+  public async saveNote(note: INote) {
     let newNote = {
       body: {
-        "id": 0,
-        "title": "My first note!",
-        "content": "This is so cool!"
+        "noteTitle": "My first note!",
+        "noteContent": "This is so cool!"
       }
     }
-    const path = "/addnote";
+    const api = "Notes";
+    const path = "/items";
 
     // Use the API module to save the note to the database
     try {
-      const apiResponse = await API.put("NotesCrud", path, newNote)
-      console.log("response from saving note: " + JSON.stringify(apiResponse));
-      // this.setState({apiResponse});
+      return await API.post(api, path, newNote);
     } catch (e) {
-      console.log('error:' + e);
+      console.log('Failed to save note:' + e);
+      return "Failed to save note.";
+    }
+  }
+
+
+  /**
+  * Get all notes for current user
+  */
+  public async getNotes() {
+    const api = "Notes";
+    const path = "/items";
+
+    // fetch all notes of current user
+    try {
+      return await API.get(api, path);
+    } catch(e) {
+      console.log('Failed to fetch notes: ' + e);
+      return "Failed to fetch notes.";
     }
   }
 }

@@ -30,57 +30,57 @@ AWS.config.update({ region: process.env.REGION })
  * Example get method *
  **********************/
 
-app.get('/notes', function(req, res) {
+app.get('/items', function(req, res) {
   // Add your code here
   // Return the API Gateway event and query string parameters for example
   res.json(req.apiGateway.event);
 });
 
-app.get('/notes/*', function(req, res) {
+app.get('/items/*', function(req, res) {
   // Add your code here
-  res.json({success: 'get call succeed!', req: JSON.stringify(req)});
+  res.json({success: 'get call succeed!', url: req.url});
 });
 
 /****************************
 * Example post method *
 ****************************/
 
-app.post('/notes', function(req, res) {
+app.post('/items', function(req, res) {
   // Add your code here
-  res.json({success: 'post call succeed!', req: JSON.stringify(req)})
+  res.json({success: 'post call succeed!', url: req.url, body: req.body})
 });
 
-app.post('/notes/*', function(req, res) {
+app.post('/items/*', function(req, res) {
   // Add your code here
-  res.json({success: 'post call succeed!', req: JSON.stringify(req)})
+  res.json({success: 'post call succeed!', url: req.url, body: req.body})
 });
 
 /****************************
 * Example post method *
 ****************************/
 
-app.put('/notes', function(req, res) {
+app.put('/items', function(req, res) {
   // Add your code here
-  res.json({success: 'put call succeed!', req: JSON.stringify(req))
+  res.json({success: 'put call succeed!', url: req.url, body: req.body})
 });
 
-app.put('/notes/*', function(req, res) {
+app.put('/items/*', function(req, res) {
   // Add your code here
-  res.json({success: 'put call succeed!', req: JSON.stringify(req)})
+  res.json({success: 'put call succeed!', url: req.url, body: req.body})
 });
 
 /****************************
 * Example delete method *
 ****************************/
 
-app.delete('/notes', function(req, res) {
+app.delete('/items', function(req, res) {
   // Add your code here
-  res.json({success: 'delete call succeed!', req: JSON.stringify(req)});
+  res.json({success: 'delete call succeed!', url: req.url});
 });
 
-app.delete('/notes/*', function(req, res) {
+app.delete('/items/*', function(req, res) {
   // Add your code here
-  res.json({success: 'delete call succeed!', req: JSON.stringify(req)});
+  res.json({success: 'delete call succeed!', url: req.url});
 });
 
 app.listen(3000, function() {
