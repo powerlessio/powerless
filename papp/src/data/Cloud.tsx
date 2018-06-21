@@ -41,11 +41,10 @@ export class CloudStore {
 
     // Use the API module to save the note to the database
     try {
-      const apiResponse = await API.post(api, path, newNote)
-      console.log("response from saving note: " + JSON.stringify(apiResponse));
-      // this.setState({apiResponse});
+      return await API.post(api, path, newNote);
     } catch (e) {
-      console.log('error:' + e);
+      console.log('Failed to save note:' + e);
+      return "Failed to save note.";
     }
   }
 
@@ -59,9 +58,7 @@ export class CloudStore {
 
     // fetch all notes of current user
     try {
-      const response = await API.get(api, path);
-      console.log('Response: '+JSON.stringify(response));
-      return response;
+      return await API.get(api, path);
     } catch(e) {
       console.log('Failed to fetch notes: ' + e);
       return "Failed to fetch notes.";
