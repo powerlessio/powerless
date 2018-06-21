@@ -1,16 +1,16 @@
---- !com.amazonaws.mobilehub.v0.Project 
+--- !com.amazonaws.mobilehub.v0.Project
 apps:
   react-native: !com.amazonaws.mobilehub.v0.AppDO {}
 features:
-  cloudlogic: !com.amazonaws.mobilehub.v0.CloudLogic 
+  cloudlogic: !com.amazonaws.mobilehub.v0.CloudLogic
     components:
-      NotesCrud: !com.amazonaws.mobilehub.v0.API 
+      NotesCrud: !com.amazonaws.mobilehub.v0.API
         attributes:
           name: NotesCrud
           requires-signin: false
           sdk-generation-stage-name: Development
         paths:
-          /notes: !com.amazonaws.mobilehub.v0.Function 
+          /notes: !com.amazonaws.mobilehub.v0.Function
             codeFilename: uploads/NotesCrud-20180620120053.zip
             description: 'Handler for calls to resource path : /notes/{proxy+}'
             enableCORS: true
@@ -23,7 +23,7 @@ features:
             runtime: nodejs6.10
             timeout: '3'
             version: cWxmvh5gM7brGPX0G.0pIUvkxODFcz.h
-          '/notes/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
+          '/notes/{proxy+}': !com.amazonaws.mobilehub.v0.Function
             codeFilename: uploads/NotesCrud-20180620120053.zip
             description: 'Handler for calls to resource path : /notes/{proxy+}'
             enableCORS: true
@@ -36,13 +36,13 @@ features:
             runtime: nodejs6.10
             timeout: '3'
             version: d4XN73jWLL1lD8tQPSGj1eQGlSym_UAd
-  content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery 
+  content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery
     attributes:
       enabled: true
       visibility: public-global
     components:
       release: !com.amazonaws.mobilehub.v0.Bucket {}
-  mobile-analytics: !com.amazonaws.mobilehub.v0.Pinpoint 
+  mobile-analytics: !com.amazonaws.mobilehub.v0.Pinpoint
     components:
       analytics: !com.amazonaws.mobilehub.v0.PinpointAnalytics {}
   sign-in: !com.amazonaws.mobilehub.v0.SignIn {}
