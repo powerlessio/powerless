@@ -1,12 +1,12 @@
 import * as React from 'react'
-import { Button } from 'react-native'
 import { Component } from 'react'
 import { NavigationScreenProps } from 'react-navigation'
-import { ScrollView } from 'react-native'
-import { Text } from 'react-native'
+import { Button, Text, TouchableHighlight,
+  ScrollView, View, Image} from 'react-native'
 
 import { PowerlessData } from './data/Local'
 import { CloudStore } from './data/Cloud'
+import { PowerlessStyles } from './styles/Styles'
 import { Provider,connect } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 
@@ -35,12 +35,40 @@ export class MainScreen extends Component<NavigationScreenProps> {
     }
   }
 
+  private showNote(note: INote) {
+    console.log('calling the single note rendering..: ' + JSON.stringify(note));
+    return (
+      <TouchableHighlight
+        style={PowerlessStyles.container}
+        onPress={() => {
+          this.props.navigation.navigate('ViewNote', note)
+        }}
+        underlayColor='transparent'
+        key={note.noteId}
+      >
+        <View>
+          <Image
+            resizeMode='cover'
+            source={require('../assets/icons/profileicon.png')}
+            style={PowerlessStyles.noteInfoAvatar}
+          />
+          <Text style={PowerlessStyles.noteInfoName}>{note.noteTitle}</Text>
+        </View>
+      </TouchableHighlight>
+    )
+  }
+
   public render() {
     // debug - pretend user logged in
-    let data = PowerlessData.getData();
-    let store = data.getStore();
-    let cloudStore = CloudStore.getStore();
-    cloudStore.saveNote();
+    const data = PowerlessData.getData();
+    const store = data.getStore();
+    const cloudStore = CloudStore.getStore();
+    const notes = [{noteId: 'x', noteTitle: 'cool'}]
+
+    // TODO: how to get async result in current sync context?
+    // await cloudStore.getNotes();
+    console.log('notes type: ' + JSON.stringify(notes));
+
     return (
       <ScrollView
         style={{
@@ -63,6 +91,12 @@ export class MainScreen extends Component<NavigationScreenProps> {
         />
 
         <Text>User: {store.getState().auth.authState.fbName}</Text>
+        <Text> Notes: </Text>
+        {
+          (typeof notes === 'string') ?
+            <Text>{notes}</Text> :
+            notes.map((note) => this.showNote(note))
+        }
       </ScrollView>
     )
   }

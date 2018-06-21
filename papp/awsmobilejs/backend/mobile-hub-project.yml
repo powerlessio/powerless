@@ -1,48 +1,64 @@
---- !com.amazonaws.mobilehub.v0.Project
+--- !com.amazonaws.mobilehub.v0.Project 
 apps:
   react-native: !com.amazonaws.mobilehub.v0.AppDO {}
 features:
-  cloudlogic: !com.amazonaws.mobilehub.v0.CloudLogic
+  cloudlogic: !com.amazonaws.mobilehub.v0.CloudLogic 
     components:
-      NotesCrud: !com.amazonaws.mobilehub.v0.API
+      Notes: !com.amazonaws.mobilehub.v0.API 
         attributes:
-          name: NotesCrud
+          name: Notes
           requires-signin: false
           sdk-generation-stage-name: Development
         paths:
-          /notes: !com.amazonaws.mobilehub.v0.Function
-            codeFilename: uploads/NotesCrud-20180620120053.zip
-            description: 'Handler for calls to resource path : /notes/{proxy+}'
+          /items: !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/Notes-20180621085846.zip
+            description: 'Handler for calls to resource path : /items/{proxy+}'
             enableCORS: true
             environment: {}
             handler: lambda.handler
-            hashcode: aMV8USH0bG1fx99rwDORDWRe8ckOZxHdTm7Mkbz49ZY=
+            hashcode: Zj9GXj16Uh4OiNnoIIL9EzFGaHGs13H1y+uVQmR37HQ=
             memorySize: '128'
-            modified: '2018-06-20T19:01:41.896+0000'
-            name: NotesCrud
+            modified: '2018-06-21T15:59:15.347+0000'
+            name: Notes
             runtime: nodejs6.10
             timeout: '3'
-            version: cWxmvh5gM7brGPX0G.0pIUvkxODFcz.h
-          '/notes/{proxy+}': !com.amazonaws.mobilehub.v0.Function
-            codeFilename: uploads/NotesCrud-20180620120053.zip
-            description: 'Handler for calls to resource path : /notes/{proxy+}'
+            version: xCPfHc64agBq4oVAPDgH2b66QPdesYl0
+          '/items/{proxy+}': !com.amazonaws.mobilehub.v0.Function 
+            codeFilename: uploads/Notes-20180621085846.zip
+            description: 'Handler for calls to resource path : /items/{proxy+}'
             enableCORS: true
             environment: {}
             handler: lambda.handler
-            hashcode: aMV8USH0bG1fx99rwDORDWRe8ckOZxHdTm7Mkbz49ZY=
+            hashcode: Zj9GXj16Uh4OiNnoIIL9EzFGaHGs13H1y+uVQmR37HQ=
             memorySize: '128'
-            modified: '2018-06-20T19:01:41.896+0000'
-            name: NotesCrud
+            modified: '2018-06-21T15:59:15.347+0000'
+            name: Notes
             runtime: nodejs6.10
             timeout: '3'
-            version: d4XN73jWLL1lD8tQPSGj1eQGlSym_UAd
-  content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery
+            version: Sv9mqBy9xGKWvuPtcHK8ewowe4Q5k1Oh
+  content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery 
     attributes:
       enabled: true
       visibility: public-global
     components:
       release: !com.amazonaws.mobilehub.v0.Bucket {}
-  mobile-analytics: !com.amazonaws.mobilehub.v0.Pinpoint
+  database: !com.amazonaws.mobilehub.v0.Database 
+    components:
+      database-nosql: !com.amazonaws.mobilehub.v0.NoSQLDatabase 
+        tables:
+          - !com.amazonaws.mobilehub.v0.NoSQLTable 
+            attributes:
+              noteContent: S
+              noteId: S
+              noteTitle: S
+              userId: S
+            hashKeyName: userId
+            hashKeyType: S
+            rangeKeyName: noteId
+            rangeKeyType: S
+            tableName: ___DYNAMIC_PREFIX___-notes
+            tablePrivacy: public
+  mobile-analytics: !com.amazonaws.mobilehub.v0.Pinpoint 
     components:
       analytics: !com.amazonaws.mobilehub.v0.PinpointAnalytics {}
   sign-in: !com.amazonaws.mobilehub.v0.SignIn {}

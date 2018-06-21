@@ -26,3 +26,6 @@ console complains about
 
 > "awsmobile init b40a98a0-c351-41d0-9445-e26b6a2fc05f"
 > cp awsmobilejs/#current*/aws-export.js src/aws-export.js
+
+### test lambda / API
+go to lambda console and use the test button to ensure it works.
