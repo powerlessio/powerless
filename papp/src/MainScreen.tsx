@@ -24,7 +24,7 @@ class DestinationAndTitle {
   }
 
   public title: string
-}
+};
 
 // tslint:disable-next-line:max-classes-per-file
 export class MainScreen extends Component<NavigationScreenProps> {
@@ -33,6 +33,19 @@ export class MainScreen extends Component<NavigationScreenProps> {
     headerStyle: {
       backgroundColor: '#F4511E'
     }
+  }
+
+  constructor() {
+    super();
+    // initialize with empty notes
+    this.state = {notes: []};
+
+    // fetch notes for current user
+    // don't call setState in render method -> infinite loop!
+    CloudStore.getStore().getNotes().then((r) =>{
+      console.log('result : ' + JSON.stringify(r));
+      this.setState({notes: r});
+    });
   }
 
   private showNote(note: INote) {
@@ -62,12 +75,9 @@ export class MainScreen extends Component<NavigationScreenProps> {
     // debug - pretend user logged in
     const data = PowerlessData.getData();
     const store = data.getStore();
-    const cloudStore = CloudStore.getStore();
-    const notes = [{noteId: 'x', noteTitle: 'cool'}]
 
-    // TODO: how to get async result in current sync context?
-    // await cloudStore.getNotes();
-    console.log('notes type: ' + JSON.stringify(notes));
+    // give a variable to bind
+    let notes = this.state.notes;
 
     return (
       <ScrollView
@@ -92,11 +102,13 @@ export class MainScreen extends Component<NavigationScreenProps> {
 
         <Text>User: {store.getState().auth.authState.fbName}</Text>
         <Text> Notes: </Text>
-        {
-          (typeof notes === 'string') ?
-            <Text>{notes}</Text> :
-            notes.map((note) => this.showNote(note))
-        }
+        <View>
+          {
+            (typeof  notes === 'string') ?
+              <Text>{notes}</Text> :
+              notes.map((note) => this.showNote(note))
+          }
+        </View>
       </ScrollView>
     )
   }
