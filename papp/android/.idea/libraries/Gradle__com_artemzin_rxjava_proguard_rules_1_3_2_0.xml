@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.artemzin.rxjava:proguard-rules-1.3.2.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/7ef657224f138533ebc61fda08e19682e94b8219/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/7ef657224f138533ebc61fda08e19682e94b8219/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
