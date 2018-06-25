@@ -29,3 +29,10 @@ aws-exports.*
 awsmobilejs/.awsmobile/backend-build
 awsmobilejs/\#current-backend-info
 ~awsmobilejs-*/
+
+#native
+ios/build
+ios/Pods
+android/build
+android/maven
+android/.idea
