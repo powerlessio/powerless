@@ -1,7 +1,7 @@
 PODS:
   - Amplitude-iOS (3.14.1)
   - Analytics (3.6.9)
-  - AppAuth (0.92.0)
+  - AppAuth (0.93.0)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -18,8 +18,8 @@ PODS:
   - CocoaLumberjack/Default (3.2.1)
   - CocoaLumberjack/Extensions (3.2.1):
     - CocoaLumberjack/Default
-  - Crashlytics (3.10.2):
-    - Fabric (~> 1.7.7)
+  - Crashlytics (3.10.3):
+    - Fabric (~> 1.7.8)
   - DoubleConversion (1.1.5)
   - ExpoKit/Core (2.6.5):
     - Amplitude-iOS (~> 3.8)
@@ -45,7 +45,7 @@ PODS:
     - ExpoKit/Core
   - ExpoKit/GL (2.6.5):
     - ExpoKit/CPP
-  - Fabric (1.7.7)
+  - Fabric (1.7.8)
   - FBAudienceNetwork (4.28.1)
   - FBSDKCoreKit (4.34.0):
     - Bolts (~> 1.7)
@@ -98,55 +98,58 @@ PODS:
   - GPUImage (0.1.7)
   - JKBigInteger2 (0.0.5)
   - lottie-ios (2.5.0)
-  - React (0.54.2):
-    - React/Core (= 0.54.2)
-  - React/ART (0.54.2):
+  - React (0.55.2):
+    - React/Core (= 0.55.2)
+  - React/ART (0.55.2):
     - React/Core
-  - React/Core (0.54.2):
-    - yoga (= 0.54.2.React)
-  - React/CxxBridge (0.54.2):
+  - React/Core (0.55.2):
+    - React/fabric
+    - yoga (= 0.55.2.React)
+  - React/CxxBridge (0.55.2):
     - Folly (= 2016.09.26.00)
     - React/Core
     - React/cxxreact
-  - React/cxxreact (0.54.2):
+  - React/cxxreact (0.55.2):
     - boost-for-react-native (= 1.63.0)
     - Folly (= 2016.09.26.00)
     - React/jschelpers
     - React/jsinspector
-  - React/DevSupport (0.54.2):
+  - React/DevSupport (0.55.2):
     - React/Core
     - React/RCTWebSocket
-  - React/fishhook (0.54.2)
-  - React/jschelpers (0.54.2):
+  - React/fabric (0.55.2):
+    - Folly (= 2016.09.26.00)
+  - React/fishhook (0.55.2)
+  - React/jschelpers (0.55.2):
     - Folly (= 2016.09.26.00)
     - React/PrivateDatabase
-  - React/jsinspector (0.54.2)
-  - React/PrivateDatabase (0.54.2)
-  - React/RCTActionSheet (0.54.2):
+  - React/jsinspector (0.55.2)
+  - React/PrivateDatabase (0.55.2)
+  - React/RCTActionSheet (0.55.2):
     - React/Core
-  - React/RCTAnimation (0.54.2):
+  - React/RCTAnimation (0.55.2):
     - React/Core
-  - React/RCTBlob (0.54.2):
+  - React/RCTBlob (0.55.2):
     - React/Core
-  - React/RCTCameraRoll (0.54.2):
+  - React/RCTCameraRoll (0.55.2):
     - React/Core
     - React/RCTImage
-  - React/RCTGeolocation (0.54.2):
+  - React/RCTGeolocation (0.55.2):
     - React/Core
-  - React/RCTImage (0.54.2):
+  - React/RCTImage (0.55.2):
     - React/Core
     - React/RCTNetwork
-  - React/RCTNetwork (0.54.2):
+  - React/RCTNetwork (0.55.2):
     - React/Core
-  - React/RCTText (0.54.2):
+  - React/RCTText (0.55.2):
     - React/Core
-  - React/RCTVibration (0.54.2):
+  - React/RCTVibration (0.55.2):
     - React/Core
-  - React/RCTWebSocket (0.54.2):
+  - React/RCTWebSocket (0.55.2):
     - React/Core
     - React/fishhook
     - React/RCTBlob
-  - yoga (0.54.2.React)
+  - yoga (0.55.2.React)
 
 DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
@@ -221,15 +224,15 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Amplitude-iOS: 4a3c8807b2ea5369dc11e87e23825bff01e5a922
   Analytics: 6541ce337e99d9f7a2240a8b3953940a7be5f998
-  AppAuth: 3f4f1d6d85ad631d0bbf15ffcdc10c447face97a
+  AppAuth: 1096c2ad48507c4a2a8c85c8a6ff065741ab9931
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   Branch: 0d98d22745a9b68bcb4fa6dc1c6a92b64d4fdd7b
   CocoaLumberjack: 2800c03334042fe80589423c8d80e582dcaec482
-  Crashlytics: 0360624eea1c978a743feddb2fb1ef8b37fb7a0d
-  DoubleConversion: ebb6747c5b66026ad4f97b789c3ceac6f18e57a6
+  Crashlytics: 2aea305161a2122492698c75af27f2b98aa49a25
+  DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
   ExpoKit: 441d1c7592f0715a5c81ac2346d7e743ac50428e
-  Fabric: bda89e242bce1b7b8ab264248cf3407774ce0095
+  Fabric: fba4684a95df789565b0b27fc5b6e68f1755af32
   FBAudienceNetwork: c0cda151bb2f7b55d1e045e59ebc81f3153989b2
   FBSDKCoreKit: 0ff57f093b85c8c9d5aba697d3edf68a8960ce78
   FBSDKLoginKit: 8c78f57a145afb756e4755e69195ebe08a42466e
@@ -248,8 +251,8 @@ SPEC CHECKSUMS:
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   JKBigInteger2: e91672035c42328c48b7dd015b66812ddf40ca9b
   lottie-ios: d699fdee68d7b63e721d949388b015fef1aaa4ac
-  React: c237e42de9c70e5cac6eeb52b4cfd3a0910c1f00
-  yoga: 55da126afc384965b96bff46652464373b330add
+  React: 977e1cdf18a3047a35d321b34ffb678d79d19076
+  yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
 PODFILE CHECKSUM: a9195a294841795c32481d8063f10ec3dbda0593
 

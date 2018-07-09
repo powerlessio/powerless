@@ -6,6 +6,7 @@ import { Button, Text, TouchableHighlight,
 
 import { PowerlessData } from './data/Local'
 import { CloudStore } from './data/Cloud'
+import { DeviceManager } from './data/BLE'
 import { PowerlessStyles } from './styles/Styles'
 import { Provider,connect } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';

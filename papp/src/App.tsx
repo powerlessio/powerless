@@ -29,6 +29,7 @@ import { Text } from 'react-native'
 import { Provider,connect } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { PowerlessData } from './data/Local'
+import { DeviceManager } from './data/BLE'
 
 const Navigationapp = StackNavigator({
   // tslint:disable:object-literal-sort-keys
@@ -69,6 +70,8 @@ export default class App extends Component{
       const data = PowerlessData.getData();
       const store = data.getStore();
       const persistor = data.getPersistor();
+      // create a device manager
+      // const deviceManager = new DeviceManager();
       console.log('store: ' + store);
       console.log('persistor: ' + persistor);
       return (

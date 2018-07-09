@@ -29,3 +29,16 @@ console complains about
 
 ### test lambda / API
 go to lambda console and use the test button to ensure it works.
+
+# XCODE
+To integrate with bluetooth lib, we need "exp detach" to run it with native
+However, it took me several days to fight with build pass and make it run
+A few tips that might help:
+> "remove xcode cache" rm -rf ~/Library/Developer/Xcode/DerivedData
+> reinstall pod "pod deintegrate && pod cache clean --all"
+> make sure clean run of  "pod setup --verbose && pod install --verbose"
+
+Another tip, it is possible open the project in Xcode with ".xcworkspace"
+rather than "powerless.xcodeproj" which likely cause problem (don't know why)
+
+Also - always use yarn install rather than npm install

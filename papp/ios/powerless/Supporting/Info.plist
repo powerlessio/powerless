@@ -70,16 +70,19 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow Powerless to access your microphone</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Allow Powerless to access your device's accelerometer</string>
+	<string>Allow Powerless to access your device&apos;s accelerometer</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Give Powerless permission to save photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Give Powerless permission to access your photos</string>
 	<key>NSRemindersUsageDescription</key>
 	<string>Allow Powerless to access your reminders</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string></string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>
+		<string>bluetooth-peripheral</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
