@@ -6,6 +6,7 @@ import { Button, Text, TouchableHighlight,
 
 import { PowerlessData } from './data/Local'
 import { CloudStore } from './data/Cloud'
+import { DeviceManager } from './data/BLE'
 import { PowerlessStyles } from './styles/Styles'
 import { Provider,connect } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
@@ -29,10 +30,7 @@ class DestinationAndTitle {
 // tslint:disable-next-line:max-classes-per-file
 export class MainScreen extends Component<NavigationScreenProps> {
   public static navigationOptions = {
-    title: 'Power...less',
-    headerStyle: {
-      backgroundColor: '#F4511E'
-    }
+    title: 'Power...less'
   }
 
   constructor() {
