@@ -30,10 +30,7 @@ class DestinationAndTitle {
 // tslint:disable-next-line:max-classes-per-file
 export class MainScreen extends Component<NavigationScreenProps> {
   public static navigationOptions = {
-    title: 'Power...less',
-    headerStyle: {
-      backgroundColor: '#F4511E'
-    }
+    title: 'Power...less'
   }
 
   constructor() {
