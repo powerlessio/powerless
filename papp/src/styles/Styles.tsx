@@ -2,10 +2,13 @@ import * as React from 'react';
 import { Component } from 'react';
 import { StyleSheet, Image, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const PowerlessStyles = StyleSheet.create({
   container: {
     padding: 25,
+    backgroundColor: '#dd0',
+    flex: 1
   },
   title: {
     color: '#333',
@@ -38,15 +41,15 @@ const PowerlessStyles = StyleSheet.create({
   bannerImage: {
     width: 36,
     height: 36,
-    resizeMode: 'contain',
+    // resizeMode: 'contain',
     // tintColor: '#0f0',
-    margin: 8,
+    margin: 4,
   },
   bannerText: {
     fontSize: 18,
     fontWeight: '400',
     color: '#fff',
-    margin: 8,
+    margin: 4,
   }
 });
 
@@ -56,8 +59,9 @@ class Banner extends Component {
     return (
       <SafeAreaView style={PowerlessStyles.bannerContainer}>
         <View style={PowerlessStyles.banner}>
-          <Image
-            source={require('../../assets/icons/powerless-icon.png')}
+          <Ionicons
+            name='ios-battery-charging-outline'
+            size={36}
             style={PowerlessStyles.bannerImage}
           />
           <Text style={PowerlessStyles.bannerText}>Powerless</Text>
@@ -74,7 +78,7 @@ const PowerlessBanner = {
   navigationOptions: {
     headerTitle: <Banner />,
     headerStyle: {
-      backgroundColor: '#00FF00',
+      backgroundColor: '#392',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {

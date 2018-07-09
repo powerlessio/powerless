@@ -1,13 +1,13 @@
-import * as React from 'react'
-import { Component } from 'react'
-import { NavigationScreenProps } from 'react-navigation'
+import * as React from 'react';
+import { Component } from 'react';
+import { NavigationScreenProps } from 'react-navigation';
 import { Button, Text, TouchableHighlight,
-  ScrollView, View, Image} from 'react-native'
+  ScrollView, View, Image} from 'react-native';
 
-import { PowerlessData } from './data/Local'
-import { CloudStore } from './data/Cloud'
-import { DeviceManager } from './data/BLE'
-import { PowerlessStyles } from './styles/Styles'
+import { PowerlessData } from './data/Local';
+import { CloudStore } from './data/Cloud';
+import { DeviceManager } from './data/BLE';
+import { PowerlessStyles } from './styles/Styles';
 import { Provider,connect } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 
@@ -78,11 +78,7 @@ export class MainScreen extends Component<NavigationScreenProps> {
     let notes = this.state.notes;
 
     return (
-      <ScrollView
-        style={{
-          backgroundColor: '#F2B21E',
-          flex: 1
-        }}>
+      <ScrollView style={PowerlessStyles.container}>
         <Button
           title="Show Heart"
           onPress={() => {
