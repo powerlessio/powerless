@@ -35,6 +35,8 @@ import { DeviceManager } from './data/BLE';
 import { PowerlessBanner } from './styles/Styles';
 import { TestScreen } from './TestScreen';
 
+import { withAuthenticator } from 'aws-amplify-react-native';
+
 const MainTab = createStackNavigator(
   {
     // tslint:disable:object-literal-sort-keys
@@ -139,7 +141,7 @@ const mapStateToProps=state => {
 };
 const Container = connect(mapStateToProps)(PowerlessTabs);
 
-export default class App extends Component{
+class App extends Component{
     render(){
       // subscribe a state change set
       // pass store new state to current state to trigger re-render
@@ -159,3 +161,6 @@ export default class App extends Component{
       )
     }
 };
+
+// the whole app is wrapped by aws amplify authenticator
+export default withAuthenticator(App);

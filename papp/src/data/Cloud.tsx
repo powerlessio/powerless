@@ -1,5 +1,5 @@
 // AWS provides the backend support by AWS cloud services
-import Amplify, { API } from 'aws-amplify';
+import Amplify, { API, Auth } from 'aws-amplify';
 import awsmobile from '../aws-exports';
 
 export interface INote {
@@ -22,6 +22,10 @@ export class CloudStore {
 
   constructor() {
     console.log('init a cloud store...');
+    // authenticated user info
+    // https://aws.github.io/aws-amplify/media/authentication_guide
+    const session = Auth.currentSession();
+    console.log('current session: ' + JSON.stringify(session));
     // connect with AWS services
     Amplify.configure(awsmobile);
   }

@@ -11,8 +11,9 @@
     "orientation": "portrait",
     "primaryColor": "#fff",
     "icon": "./assets/icons/app-icon.png",
-    "loading": {
-      "icon": "./assets/icons/loading-icon.png"
+    "splash": {
+      "image": "./assets/icons/powerless.png",
+      "resizeMode": "contain"
     },
     "packagerOpts": {
       "assetExts": [
